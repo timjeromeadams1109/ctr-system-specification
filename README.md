@@ -61,20 +61,165 @@ This specification defines a complete system capable of:
 
 ## Documentation Structure
 
-| Document | Description |
-|----------|-------------|
-| [01-agent-architecture.md](docs/01-agent-architecture.md) | 14 specialized agents with I/O schemas |
-| [02-engineering-core.md](docs/02-engineering-core.md) | Structural engineering formulas and algorithms |
-| [03-verification-loop.md](docs/03-verification-loop.md) | Dual-pass verification system |
-| [04-confidence-scoring.md](docs/04-confidence-scoring.md) | Weighted confidence scoring model |
-| [05-clash-detection.md](docs/05-clash-detection.md) | 3D geometric intersection algorithms |
-| [06-revision-differencing.md](docs/06-revision-differencing.md) | Entity correlation and diff engine |
-| [07-liability-workflow.md](docs/07-liability-workflow.md) | PE stamp and audit trail system |
-| [08-enterprise-implementation.md](docs/08-enterprise-implementation.md) | Technology stack and API contracts |
-| [09-scalability.md](docs/09-scalability.md) | Performance projections and optimization |
-| [10-output-formats.md](docs/10-output-formats.md) | Report, schedule, and overlay schemas |
-| [11-failure-modes.md](docs/11-failure-modes.md) | Detection and mitigation strategies |
-| [12-hard-constraints.md](docs/12-hard-constraints.md) | System boundaries and validation rules |
+### Section 1 — Agent Architecture
+**[01-agent-architecture.md](docs/01-agent-architecture.md)**
+
+Defines all 14 specialized agents in the system:
+- **Chief Orchestrator Agent** — Pipeline coordination, agent lifecycle, state management
+- **Drawing Ingestion Agent** — DWG/DXF/PDF parsing, OCR, scale detection
+- **Geometry Normalization Agent** — Coordinate systems, grid alignment, unit conversion
+- **Shear Wall Detection Agent** — Wall identification, schedule correlation, holdown extraction
+- **Load Path Analysis Agent** — Vertical continuity, stack validation, force distribution
+- **Rod Design Agent** — Sizing, cumulative tension, hardware selection
+- **Shrinkage Analysis Agent** — Wood movement, take-up device specification
+- **Clash Detection Agent** — 3D spatial indexing, MEP coordination
+- **Code Compliance Agent** — CBC/IBC/ASCE 7 verification
+- **Structural Audit Agent** — Independent recalculation, dual-pass verification
+- **Revision Diff Agent** — Drawing comparison, change tracking
+- **Confidence Scoring Agent** — Risk assessment, PE review recommendations
+- **Report Generation Agent** — PDF/CSV/DXF output production
+- **PE Review Interface Agent** — Digital signature workflow, stamp management
+
+### Section 2 — Engineering Core
+**[02-engineering-core.md](docs/02-engineering-core.md)**
+
+Complete structural engineering formulas and algorithms:
+- Overturning moment calculations
+- Tension demand with dead load offset
+- Cumulative axial force through multiple levels
+- ASD and LRFD load combinations per ASCE 7-22
+- Wood shrinkage computation per NDS
+- Rod elongation under service loads
+- Utilization ratio calculations
+- Seismic base shear distribution
+- Foundation anchorage design per ACI 318
+
+### Section 3 — Verification Loop
+**[03-verification-loop.md](docs/03-verification-loop.md)**
+
+Dual-pass self-verification architecture:
+- Primary calculation by Rod Design Agent
+- Secondary verification by Structural Audit Agent
+- Tolerance thresholds for all parameters
+- Discrepancy detection and resolution
+- Automatic flagging and PE escalation
+- Hash-based calculation integrity
+
+### Section 4 — Confidence Scoring
+**[04-confidence-scoring.md](docs/04-confidence-scoring.md)**
+
+Weighted multi-factor confidence model:
+- Component weight definitions
+- Scoring formulas with penalty factors
+- Project factor adjustments
+- Risk classification thresholds (LOW/MODERATE/HIGH/CRITICAL)
+- PE review intensity recommendations
+- Score breakdown visualization
+
+### Section 5 — Clash Detection
+**[05-clash-detection.md](docs/05-clash-detection.md)**
+
+3D geometric intersection engine:
+- Axis-Aligned Bounding Box (AABB) mathematics
+- Oriented Bounding Box (OBB) representation
+- Parametric cylinder intersection algorithms
+- Cylinder-cylinder clash detection
+- Cylinder-box intersection for beams/headers
+- R-tree spatial indexing with rtree/libspatialindex
+- Clearance requirements by element type
+- Severity classification and resolution recommendations
+
+### Section 6 — Revision Differencing
+**[06-revision-differencing.md](docs/06-revision-differencing.md)**
+
+Drawing revision comparison system:
+- Entity correlation engine with persistent IDs
+- Geometry-based fuzzy matching
+- Attribute-based matching
+- Property differencing with change classification
+- Structural and cost impact assessment
+- Material quantity delta calculation
+- Hash-based ID persistence across revisions
+
+### Section 7 — Liability and PE Workflow
+**[07-liability-workflow.md](docs/07-liability-workflow.md)**
+
+Legal defensibility and professional engineering:
+- Standard engineering disclaimer templates
+- Assumption logging system with categories and sources
+- Immutable audit trail with hash chain integrity
+- PE stamp workflow with digital signatures
+- Review comment tracking and resolution
+- Document signature verification
+- Multi-stage approval process
+
+### Section 8 — Enterprise Implementation
+**[08-enterprise-implementation.md](docs/08-enterprise-implementation.md)**
+
+Production deployment architecture:
+- Technology stack recommendations (Python 3.11+, FastAPI, PostgreSQL)
+- Microservices architecture diagram
+- API contract definitions with Pydantic models
+- FastAPI endpoint specifications
+- Role-based authentication and authorization
+- Multi-tenant project isolation
+- PostgreSQL/PostGIS database schema
+- Index optimization strategies
+
+### Section 9 — Scalability and Performance
+**[09-scalability.md](docs/09-scalability.md)**
+
+Enterprise scaling strategies:
+- Per-project compute load projections
+- Agent-specific resource profiles
+- Memory budget allocation and management
+- LRU drawing cache implementation
+- Horizontal scaling with worker pools
+- Auto-scaling policies by metric type
+- Database partitioning strategies
+- Multi-tier caching architecture
+- Performance benchmarks and targets
+- Disaster recovery procedures
+
+### Section 10 — Output Formats
+**[10-output-formats.md](docs/10-output-formats.md)**
+
+Deliverable specifications:
+- Engineering report PDF structure with section definitions
+- PDF generation engine implementation
+- Rod schedule CSV column specifications
+- Rod schedule JSON schema with full hierarchy
+- DXF overlay layer naming conventions
+- DXF generation with ezdxf
+- Block definitions for symbols
+- IFC export for BIM integration
+- Revit family parameter mappings
+
+### Section 11 — Failure Modes
+**[11-failure-modes.md](docs/11-failure-modes.md)**
+
+Comprehensive failure handling:
+- Drawing interpretation failures (scale, title block, grid detection)
+- Layer interpretation and classification failures
+- Shear wall detection ambiguities
+- Schedule correlation mismatches
+- Load path discontinuity detection
+- Structural analysis failures (capacity, shrinkage, verification)
+- Code compliance violations
+- MEP coordination failures
+- Failure detection engine implementation
+- Recovery and fallback procedures
+
+### Section 12 — Hard Constraints
+**[12-hard-constraints.md](docs/12-hard-constraints.md)**
+
+System boundaries and validation:
+- Building configuration limits (3-7 stories)
+- Material specifications and allowable grades
+- Governing code references
+- Tolerance threshold tables
+- Input validation rules
+- Non-negotiable safety requirements
 
 ---
 
@@ -162,7 +307,7 @@ T_allowable = (0.75 × F_u × A_s) / Ω
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/ctr-system-specification.git
+git clone https://github.com/timjeromeadams1109/ctr-system-specification.git
 cd ctr-system-specification
 
 # Install dependencies
