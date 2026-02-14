@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RodRunEntity",
+  "type": "object",
+  "required": ["rod_run_id", "rod_diameter_in", "segments", "demand_tension_lb", "allowable_tension_lb"],
+  "properties": {
+    "rod_run_id": {
+      "type": "string",
+      "pattern": "^RR-[A-Z]{2}-[A-Z0-9]+-[LR]$"
+    },
+    "rod_diameter_in": {
+      "type": "number",
+      "enum": [0.625, 0.75, 0.875, 1.0, 1.125, 1.25, 1.375, 1.5]
+    },
+    "rod_area_sq_in": {
+      "type": "number",
+      "minimum": 0
+    },
+    "rod_grade": {
+      "type": "string",
+      "enum": ["ASTM_A307", "ASTM_A36", "ASTM_A193_B7", "ASTM_A449"]
+    },
+    "demand_tension_lb": {
+      "type": "number",
+      "minimum": 0
+    },
+    "allowable_tension_lb": {
+      "type": "number",
+      "minimum": 0
+    },
+    "utilization_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1.0
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["segment_id", "bottom_elevation_ft", "top_elevation_ft", "diameter_in"],
+        "properties": {
+          "segment_id": {"type": "string"},
+          "bottom_elevation_ft": {"type": "number"},
+          "top_elevation_ft": {"type": "number"},
+          "length_ft": {"type": "number", "minimum": 0},
+          "diameter_in": {"type": "number"},
+          "top_connection": {"$ref": "#/definitions/ConnectionDetail"},
+          "bottom_connection": {"$ref": "#/definitions/ConnectionDetail"}
+        }
+      }
+    },
+    "total_length_ft": {
+      "type": "number",
+      "minimum": 0
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["NS", "EW"]
+    },
+    "grid_location": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string",
+      "enum": ["LEFT", "RIGHT"]
+    },
+    "levels_served": {
+      "type": "array",
+      "items": {"type": "integer"}
+    }
+  },
+  "definitions": {
+    "ConnectionDetail": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["COUPLER", "TAKE_UP", "BEARING_PLATE", "ANCHOR", "NONE"]
+        },
+        "model": {"type": "string"},
+        "elevation_ft": {"type": "number"},
+        "allowable_load_lb": {"type": "number"}
+      }
+    }
+  }
+}

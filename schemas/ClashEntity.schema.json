@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClashEntity",
+  "type": "object",
+  "required": ["clash_id", "severity", "rod_run_id", "obstruction_element_id", "clash_location"],
+  "properties": {
+    "clash_id": {
+      "type": "string",
+      "pattern": "^CLH-[A-Z]{3}-[0-9]{5}$"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["CRITICAL", "MAJOR", "MINOR", "WARNING"],
+      "description": "CRITICAL: Rod cannot be installed. MAJOR: Significant rework required. MINOR: Minor adjustment needed. WARNING: Clearance concern."
+    },
+    "clash_type": {
+      "type": "string",
+      "enum": ["HARD_INTERFERENCE", "SOFT_INTERFERENCE", "CLEARANCE_VIOLATION"]
+    },
+    "rod_run_id": {"type": "string"},
+    "obstruction_element_id": {"type": "string"},
+    "obstruction_type": {
+      "type": "string",
+      "enum": ["HVAC_DUCT", "PLUMBING_PIPE", "ELECTRICAL_CONDUIT", "STRUCTURAL_BEAM", "STRUCTURAL_HEADER", "FIRE_SPRINKLER", "CABLE_TRAY", "ARCHITECTURAL"]
+    },
+    "clash_location": {
+      "type": "object",
+      "required": ["point", "level"],
+      "properties": {
+        "point": {"$ref": "#/definitions/Point3D"},
+        "level": {"type": "integer"},
+        "grid_reference": {"type": "string"}
+      }
+    },
+    "interference_volume": {
+      "type": "object",
+      "properties": {
+        "overlap_distance_in": {"type": "number", "minimum": 0},
+        "intersection_length_in": {"type": "number", "minimum": 0}
+      }
+    },
+    "resolution_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option_id": {"type": "string"},
+          "description": {"type": "string"},
+          "feasibility": {"type": "string", "enum": ["EASY", "MODERATE", "DIFFICULT", "NOT_FEASIBLE"]},
+          "responsible_trade": {"type": "string"},
+          "cost_impact": {"type": "string", "enum": ["NONE", "LOW", "MEDIUM", "HIGH"]},
+          "structural_impact": {"type": "boolean"}
+        }
+      }
+    },
+    "resolution_status": {
+      "type": "string",
+      "enum": ["UNRESOLVED", "PROPOSED", "ACCEPTED", "REJECTED", "IMPLEMENTED"],
+      "default": "UNRESOLVED"
+    }
+  },
+  "definitions": {
+    "Point3D": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "z": {"type": "number"}
+      }
+    }
+  }
+}

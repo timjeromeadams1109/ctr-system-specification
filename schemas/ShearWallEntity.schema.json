@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ShearWallEntity",
+  "type": "object",
+  "required": ["wall_id", "level", "geometry", "construction"],
+  "properties": {
+    "wall_id": {
+      "type": "string",
+      "pattern": "^SW-[0-9]+-[A-Z0-9]+-[0-9]+$"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "geometry": {
+      "type": "object",
+      "required": ["start_point", "end_point", "length_ft"],
+      "properties": {
+        "start_point": {"$ref": "#/definitions/Point2D"},
+        "end_point": {"$ref": "#/definitions/Point2D"},
+        "length_ft": {"type": "number", "minimum": 0, "maximum": 100},
+        "orientation": {"type": "string", "enum": ["NS", "EW", "DIAGONAL"]},
+        "orientation_angle": {"type": "number", "minimum": 0, "maximum": 6.283185}
+      }
+    },
+    "construction": {
+      "type": "object",
+      "required": ["sheathing_type", "nail_spacing_edge", "stud_spacing"],
+      "properties": {
+        "sheathing_type": {
+          "type": "string",
+          "enum": ["STRUCTURAL_1", "OSB_RATED", "PLYWOOD_RATED", "GYPSUM", "DIAGONAL_SHEATHING"]
+        },
+        "sheathing_thickness": {"type": "number", "minimum": 0.25, "maximum": 1.125},
+        "nail_size": {"type": "string", "enum": ["6d", "8d", "10d"]},
+        "nail_spacing_edge": {"type": "number", "enum": [2, 3, 4, 6]},
+        "nail_spacing_field": {"type": "number", "enum": [6, 12]},
+        "stud_spacing": {"type": "number", "enum": [12, 16, 24]},
+        "blocking_type": {"type": "string", "enum": ["NONE", "FULL", "EDGE_ONLY"]}
+      }
+    },
+    "capacity": {
+      "type": "object",
+      "properties": {
+        "unit_shear_plf": {"type": "number", "minimum": 0},
+        "aspect_ratio": {"type": "number", "minimum": 0},
+        "aspect_ratio_adjustment": {"type": "number", "minimum": 0, "maximum": 1},
+        "adjusted_unit_shear_plf": {"type": "number", "minimum": 0},
+        "total_capacity_lb": {"type": "number", "minimum": 0}
+      }
+    },
+    "holdowns": {
+      "type": "object",
+      "properties": {
+        "left": {"$ref": "#/definitions/HoldownReference"},
+        "right": {"$ref": "#/definitions/HoldownReference"}
+      }
+    },
+    "detection_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "source_entities": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "definitions": {
+    "Point2D": {
+      "type": "object",
+      "required": ["x", "y"],
+      "properties": {
+        "x": {"type": "number"},
+        "y": {"type": "number"}
+      }
+    },
+    "HoldownReference": {
+      "type": "object",
+      "properties": {
+        "holdown_id": {"type": "string"},
+        "model": {"type": "string"},
+        "allowable_tension_lb": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}
