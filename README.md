@@ -223,6 +223,61 @@ System boundaries and validation:
 
 ---
 
+## Example Implementations
+
+Working code examples demonstrating core system functionality:
+
+| Example | Description |
+|---------|-------------|
+| [basic_rod_design.py](src/examples/basic_rod_design.py) | Rod sizing calculations, tension demand, capacity checks |
+| [shrinkage_analysis.py](src/examples/shrinkage_analysis.py) | Wood shrinkage, rod elongation, take-up device selection |
+| [clash_detection.py](src/examples/clash_detection.py) | 3D spatial indexing, cylinder/box intersections |
+| [confidence_scoring.py](src/examples/confidence_scoring.py) | Weighted scoring model, risk classification |
+| [full_project_workflow.py](src/examples/full_project_workflow.py) | Complete pipeline from drawings to report |
+
+### Running Examples
+
+```bash
+# Basic rod design
+python src/examples/basic_rod_design.py
+
+# Shrinkage analysis
+python src/examples/shrinkage_analysis.py
+
+# Clash detection
+python src/examples/clash_detection.py
+
+# Confidence scoring
+python src/examples/confidence_scoring.py
+
+# Full workflow demonstration
+python src/examples/full_project_workflow.py
+```
+
+### Example Output
+
+```
+>>> Running basic_rod_design.py
+
+ROD RUN DESIGN RESULTS: RR-A-01
+======================================================================
+Selected Rod: 0.875" diameter, A307
+Total Length: 47.5 ft
+Maximum Tension: 28,450 lb
+Allowable Tension: 31,875 lb
+Utilization Ratio: 0.89
+
+Level   Level Tension (lb)     Cumulative (lb)     Status
+----------------------------------------------------------------------
+5              4,200               4,200             OK
+4              5,100               9,300             OK
+3              5,800              15,100             OK
+2              6,350              21,450             OK
+1              7,000              28,450             OK
+```
+
+---
+
 ## Hard Constraints
 
 ### Building Configuration
